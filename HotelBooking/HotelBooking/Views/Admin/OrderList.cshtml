@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HotelBooking.Models.OrderListViewModel>
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Заказы</h1>
+
+<table class="table table-striped table-bordered" style="margin-top:50px">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Отель
+        </th>
+        <th>
+            Категория
+        </th>
+        <th>
+            Заселение
+        </th>
+        <th>
+            Выселение
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(x => item.Hotel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime)
+            </td>
+            <td>
+                @Html.ActionLink("Удалить", "DeleteOrder", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

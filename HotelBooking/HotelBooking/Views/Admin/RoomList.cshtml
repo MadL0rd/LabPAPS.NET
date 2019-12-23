@@ -1,0 +1,66 @@
+﻿@model HotelBooking.Models.RoomListViewModel
+
+@{
+    ViewBag.Title = "RoomList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h1>Комнаты</h1>
+
+
+<form method="get" style="margin-top:25px">
+    <div class="form-inline">
+        <label class="control-label">Категория: </label>
+        
+        @Html.DropDownListFor(x => x.SelectedCategoryId, new SelectList(Model.Categories, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+        <label class="control-label">Отель: </label>
+        @Html.DropDownListFor(x => x.SelectedHotelId, new SelectList(Model.Hotels, "Id", "Name"), htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Отфильтровать" class="btn btn-default" />
+    </div>
+</form>
+
+<table class="table table-striped table-bordered" style="margin-top:25px">
+    <tr>
+        <th>
+            Отель
+        </th>
+        <th>
+            Категория
+        </th>
+        <th>
+            Количество мест
+        </th>
+        <th>
+            Цена
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Rooms)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hotel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfBeds)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+
+            <td>
+                @Html.ActionLink("Удалить", "DeleteRoom", new { id = item.Id })
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Добавить комнату", "CreateRoom", null, new { @class = "btn btn-default" })
+
+

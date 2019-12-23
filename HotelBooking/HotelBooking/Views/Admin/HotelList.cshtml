@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HotelBooking.Models.HotelListViewModel>
+
+@{
+    ViewBag.Title = "HotelList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Отели</h1>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Удалить", "DeleteHotel", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Добавить отель", "CreateHotel", null, new { @class = "btn btn-default" })

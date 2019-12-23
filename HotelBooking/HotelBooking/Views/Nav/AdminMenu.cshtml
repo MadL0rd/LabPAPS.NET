@@ -1,0 +1,22 @@
+﻿
+<ul class="nav navbar-nav">
+
+    <li>
+        @Html.ActionLink("Заказы", "OrderList", "Admin", null, new { @class = "btn btn-secondary" })
+    </li>
+    <li>
+        @Html.ActionLink("Комнаты", "RoomList", "Admin", null, new { @class = "btn btn-secondary" })
+    </li>
+    <li class="dropdown">
+        <a id="drop1" href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Добавить
+            <span class="caret"></span>
+        </a>
+        <ul  class="dropdown-menu">
+            @Html.ActionLink("Добавить отель", "CreateHotel", "Admin", null, new { @class = "btn btn-secondary dropdown-item" })
+            @Html.ActionLink("Добавить категорию", "CreateCategory", "Admin", null, new { @class = "btn btn-secondary dropdown-item" })
+            @Html.ActionLink("Добавить комнату", "CreateRoom", "Admin", null, new { @class = "btn btn-secondary dropdown-item" })
+        </ul>
+    </li>
+</ul>
+
