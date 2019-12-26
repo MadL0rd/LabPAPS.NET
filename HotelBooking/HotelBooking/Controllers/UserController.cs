@@ -23,9 +23,7 @@ namespace HotelBooking.Controllers
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
         }
 
-
-
-        public ActionResult RoomListUser(int? SelectedCategoryId, int? SelectedHotelId)
+        public ActionResult RoomListUser(int? SelectedCategoryId, int? SelectedHotelId, decimal? MaxCost, decimal? MinCost)
         {
             var model = new RoomListViewModel();
 
@@ -37,6 +35,9 @@ namespace HotelBooking.Controllers
             hotels.Insert(0, new Hotel { Id = -1, Name = "Все" });
             model.Hotels = hotels;
 
+            model.MaxCost = MaxCost;
+            model.MinCost = MinCost;
+
             model.Rooms = context.Rooms.ToList();
             if (SelectedHotelId != -1 && SelectedHotelId != null)
             {
@@ -45,6 +46,21 @@ namespace HotelBooking.Controllers
             if (SelectedCategoryId != -1 && SelectedCategoryId != null)
             {
                 model.Rooms = model.Rooms.Where(x => x.Category.Id == SelectedCategoryId);
+            }
+            if (MinCost != null && MaxCost != null && MinCost > MaxCost)
+            {
+                TempData["message"] = "Минимальная стоимость не может превышать максимальную!";
+            }
+            else
+            {
+                if (MinCost != null)
+                {
+                    model.Rooms = model.Rooms.Where(x => x.Cost >= MinCost);
+                }
+                if (MaxCost != null)
+                {
+                    model.Rooms = model.Rooms.Where(x => x.Cost <= MaxCost);
+                }
             }
             return View(model);
         }
@@ -128,12 +144,7 @@ namespace HotelBooking.Controllers
             }
             return View(orders);
         }
-        [HttpGet]
-        public ActionResult CreateOrder()
-        {
-            return View();
-        }
-       
+
         public ActionResult DeleteOrder(int id)
         {
             var ord = context.Orders.Find(id);

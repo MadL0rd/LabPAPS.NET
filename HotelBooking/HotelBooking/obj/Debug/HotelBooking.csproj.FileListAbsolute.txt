@@ -276,3 +276,4 @@ F:\LabPAPS.NET\HotelBooking\HotelBooking\obj\Debug\HotelBooking.csproj.CoreCompi
 F:\LabPAPS.NET\HotelBooking\HotelBooking\obj\Debug\HotelBooking.csproj.CopyComplete
 F:\LabPAPS.NET\HotelBooking\HotelBooking\obj\Debug\HotelBooking.dll
 F:\LabPAPS.NET\HotelBooking\HotelBooking\obj\Debug\HotelBooking.pdb
+F:\LabPAPS.NET\HotelBooking\HotelBooking\obj\Debug\HotelBooking.Migrations.MigrateDB2.resources

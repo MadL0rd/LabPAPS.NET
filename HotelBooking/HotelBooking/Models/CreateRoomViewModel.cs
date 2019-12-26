@@ -22,7 +22,7 @@ namespace HotelBooking.Models
         [Display(Name = "Отель")]
         public int SelectedHotelId { get; set; }
 
-        [Range(1, 50, ErrorMessage = "Количество мест и должна быть в промежутке от 1 до 50")]
+        [Range(1, 50, ErrorMessage = "Количество мест должно быть в промежутке от 1 до 50")]
         [Required(ErrorMessage = "Укажите количество мест")]
         [Display(Name = "Количество мест")]
         public int NumberOfBeds { get; set; }

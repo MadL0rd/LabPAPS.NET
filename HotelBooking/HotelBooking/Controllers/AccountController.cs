@@ -17,8 +17,11 @@ namespace HotelBooking.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationDbContext context { get; set; }
+
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -50,6 +53,52 @@ namespace HotelBooking.Controllers
                 _userManager = value;
             }
         }
+
+        [AllowAnonymous]
+        public ActionResult RoomList(int? SelectedCategoryId, int? SelectedHotelId, decimal? MaxCost, decimal? MinCost)
+        {
+            var model = new RoomListViewModel();
+
+            var categories = context.Categories.ToList();
+            categories.Insert(0, new Category { Id = -1, Name = "Все" });
+            model.Categories = categories;
+
+            var hotels = context.Hotels.ToList();
+            hotels.Insert(0, new Hotel { Id = -1, Name = "Все" });
+            model.Hotels = hotels;
+
+            model.MaxCost = MaxCost;
+            model.MinCost = MinCost;
+
+            model.Rooms = context.Rooms.ToList();
+            if (SelectedHotelId != -1 && SelectedHotelId != null)
+            {
+                model.Rooms = model.Rooms.Where(x => x.Hotel.Id == SelectedHotelId);
+            }
+            if (SelectedCategoryId != -1 && SelectedCategoryId != null)
+            {
+                model.Rooms = model.Rooms.Where(x => x.Category.Id == SelectedCategoryId);
+            }
+            if (MinCost != null && MaxCost != null && MinCost > MaxCost)
+            {
+                TempData["message"] = "Минимальная стоимость не может превышать максимальную!";
+            }
+            else
+            {
+                if (MinCost != null)
+                {
+                    model.Rooms = model.Rooms.Where(x => x.Cost >= MinCost);
+                }
+                if (MaxCost != null)
+                {
+                    model.Rooms = model.Rooms.Where(x => x.Cost <= MaxCost);
+                }
+            }
+            return View(model);
+        }
+
+
+
 
         //
         // GET: /Account/Login

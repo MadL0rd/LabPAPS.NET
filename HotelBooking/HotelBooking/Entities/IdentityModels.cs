@@ -10,16 +10,10 @@ namespace HotelBooking.Entities
     // В профиль пользователя можно добавить дополнительные данные, если указать больше свойств для класса ApplicationUser. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<Hotel> Hotels { get; set; }
-        public ICollection<Category> Categories { get; set; }
         public ICollection<Order> Orders { get; set; }
-        public ICollection<Room> Rooms { get; set; }
         public ApplicationUser()
         {
-            Hotels = new List<Hotel>();
-            Categories = new List<Category>();
             Orders = new List<Order>();
-            Rooms = new List<Room>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

@@ -15,7 +15,6 @@ namespace HotelBooking.Controllers
         }
         public ActionResult AdminMenu()
         {
-
             return PartialView("AdminMenu");
         }
     }

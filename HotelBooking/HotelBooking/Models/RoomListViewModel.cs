@@ -14,6 +14,14 @@ namespace HotelBooking.Models
         public ICollection<Hotel> Hotels { get; set; }
         public int? SelectedCategoryId { get; set; }
         public int? SelectedHotelId { get; set; }
+        [Range(1, 500000, ErrorMessage = "Стоимость должна быть в промежутке от 1 до 500000")]
+        [Display(Name = "Минимальная стоимость")]
+        public decimal? MinCost { get; set; }
+
+        [Range(1, 500000, ErrorMessage = "Стоимость должна быть в промежутке от 1 до 500000")]
+        [Display(Name = "Минимальная стоимость")]
+        public decimal? MaxCost { get; set; }
+
         public ICollection<Category> Categories { get; set; }
     }
 }
